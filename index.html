@@ -1,51 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Getaway </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getaway </title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
+
 <body>
-    <header class="header">Getaway</header>
-     <!-- Navbar goes here -->
+  <header class="header">Getaway</header>
+  <!-- Navbar goes here -->
 
-    <!-- Page Layout here -->
-    <div class="row">
+  <!-- Page Layout here -->
+  <div class="row">
 
-        <div class="col s3">
-          <!-- Grey navigation panel -->
-          
-            <form class="col s3">
-              <div class="row">
-                <div class="input-field col s12">
-                  <textarea id="zipcode" class="zipcode"></textarea>
-                  <label for="zipcode">Zip Code</label>
-                </div>
-              </div>
-            </form>
-            <div class="distance">
-                <select name="miles">
-                  <option value="" disabled selected>Pick how far</option>
-                  <option value="30-miles">30 miles</option>
-                  <option value="50-miles">50 miles</option>
-                  <option value="100-miles">100 miles</option>
-                  <option value="200-miles">200 miles</option>
+    <div class="col s3">
+      <!-- Grey navigation panel -->
 
-                </select>
-              </div>
-
+      <form class="col s3">
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="zipcode" class="zipcode"></textarea>
+            <label for="zipcode">Zip Code</label>
+          </div>
         </div>
-  
-        <div class="col s9">
-          <!-- Teal page content  -->
-          Have you ever wanted to go somewhere or do something but dont know where to start?
-          Thats where we come in! Just give us your zip code and how far you want to go and
-          we'll do the rest! Have fun!
-        </div>
-  
+      </form>
+      <div class="distance">
+        <select name="miles">
+          <option value="" disabled selected> How Far</option>
+          <option value="30-miles">30 miles</option>
+          <option value="50-miles">50 miles</option>
+          <option value="100-miles">100 miles</option>
+          <option value="200-miles">200 miles</option>
+
+        </select>
       </div>
 
-<footer class="footer">
+    </div>
 
-</footer>
+    <div class="col s9">
+      <!-- Teal page content  -->
+      Have you ever wanted to go somewhere or do something but dont know where to start?
+      Thats where we come in! Just give us your zip code and how far you want to go and
+      we'll do the rest! Have fun!
+    </div>
+    <!-- pic grid-->
+    <section>
+      <article>
+        <figure>
+          <h2>Dining</h2>
+          <p>
+            <!-- place opitions-->
+          </p>
+        </figure>
+        <img alt="dining" src="./getaway/img/dinning.jpeg" />
+      </article>
+      <article>
+        <figure>
+          <h2>Bars & Night life</h2>
+          <p>
+            <!-- place opitions-->
+          </p>
+        </figure>
+        <img alt="night life" src="./getaway/img/nightlife.jpeg" />
+      </article>
+      <article>
+        <figure>
+          <h2>Adventurous</h2>
+          <p>
+            <!-- place opitions-->
+          </p>
+        </figure>
+        <img alt="advenure" src="./getaway/img/adventure.jpeg" />
+      </article>
+      <article>
+        <figure>
+          <h2>Events</h2>
+          <p>
+            <!-- place opitions-->
+          </p>
+        </figure>
+        <img alt="events" src="./getaway/img/events.jpeg" />
+      </article>
+      <article>
+        <figure>
+          <h2>Outdoors<h2>
+              <p>
+                <!-- place opitions-->
+              </p>
+        </figure>
+        <img alt="outside" src="./getaway/img/roadmap.jpeg" />
+      </article>
+
+      <svg width="0" height="0">
+        <defs>
+          <clipPath id="hexagono" clipPathUnits="objectBoundingBox">
+            <polygon points=".25 0, .75 0, 1 .5, .75 1, .25 1, 0 .5" />
+          </clipPath>
+        </defs>
+      </svg>
+  </div>
+
+  <footer class="footer">
+
+  </footer>
+</body>
+
 </html>
