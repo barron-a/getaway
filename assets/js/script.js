@@ -24,8 +24,22 @@ function getZipCoordinates() {
         };
     })
 }
-
 getZipCoordinates();
+
+//zip code appened
+var btn = document.getElementById("btn")
+
+
+var click = btn.onclick = function () {
+    // set item to local storage
+    var value = document.getElementById("zipcode").value;
+    localStorage.setItem("zipcode", value)
+    console.log(value)
+    // retrieve from local storeage and append in zipcodeop
+    document.getElementById("zipCodeOp").innerHTML = localStorage.getItem("zipcode")
+
+}
+
 
 //drop down distance menu
 document.addEventListener('DOMContentLoaded', function () {
