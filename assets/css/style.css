@@ -12,9 +12,11 @@ html {
 
 body {
     font-family: 'Montserrat', sans-serif;
+    /*
     padding-right: calc(var(--size) * .5);
     overflow-X: hidden;
     hyphens: auto;
+    */
 }
 
 header {
@@ -56,7 +58,7 @@ header {
 
 .input-field label {
   color: #454545;
-  font-weight: bold;
+  font-weight: normal;
   padding: 10px;
 }
 
