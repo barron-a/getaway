@@ -1,4 +1,4 @@
-var zipCodeEl = document.getElementById("zipcode");
+var zipCodeEl = document.getElementById("textarea1");
 
 // document.addEventListener('DOMContentLoaded', function () {
 //     var elems = document.querySelectorAll('select');
@@ -52,31 +52,12 @@ var btn = document.getElementById("btn")
 
 var click = btn.onclick = function () {
     // set item to local storage
-    var value = document.getElementById("zipcode").value;
+    var value = document.getElementById("textarea1").value;
     localStorage.setItem("zipcode", value)
     console.log(value)
     // retrieve from local storeage and append in zipcodeop
     document.getElementById("zipCodeOp").innerHTML = localStorage.getItem("zipcode")
 
 }
-
-
-//drop down distance menu
-document.addEventListener('DOMContentLoaded', function () {
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems, options);
-});
-
-// Or with jQuery
-
-$(document).ready(function () {
-    $('select').formSelect();
-});
-
-
-
-
-
-getZipCoordinates();
 
 
