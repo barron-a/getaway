@@ -33,13 +33,18 @@ function getZipCoordinates() {
                 // define latitude from returned data
                 var latitude = data.features[0].center[1];
 
-                //define latitude from returned data
+                //define latitude from returned datagit fetch 
                 var longitude = data.features[0].center[0];
 
                 console.log(latitude, longitude);
             });
         } else {
             // insert modal here with error message? (Had trouble getting this to work with Materialize)
+            $(document).ready(function () {
+
+                $('.modal').modal();
+
+            })
         };
     })
 }
@@ -60,7 +65,9 @@ var click = btn.onclick = function () {
 
 }
 
-// Get the input field
+
+
+// save info on enter key
 var input = document.getElementById("textarea1");
 
 // Execute a function when the user releases a key on the keyboard
@@ -73,4 +80,5 @@ input.addEventListener("keyup", function (event) {
         document.getElementById("btn").click();
     }
 });
+
 
