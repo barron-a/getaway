@@ -28,11 +28,12 @@ function getZipCoordinates() {
 
     // will pull user zip from input field - likely need a search or submit button with listener
     var userZip = zipCodeEl.value.trim();
+    console.log(userZip);
     var mapboxUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + userZip + ".json?access_token=pk.eyJ1IjoiYWRhbWJhcnJvbiIsImEiOiJja2d2dm84aW4wMXA0MzBsODltNjZ5ZzFiIn0.W7Kpov0CjgFZQWXRaFlKzg"
 
     // fetch coordinates based on zip from map box. Can replace fill URL with 'mapboxUrl' variable when button is enabled
 
-    fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/94043.json?access_token=pk.eyJ1IjoiYWRhbWJhcnJvbiIsImEiOiJja2d2dm84aW4wMXA0MzBsODltNjZ5ZzFiIn0.W7Kpov0CjgFZQWXRaFlKzg").then(function (response) {
+    fetch(mapboxUrl).then(function (response) {
         // mapbox API call
         if (response.ok) {
             response.json().then(function (data) {
@@ -49,6 +50,39 @@ function getZipCoordinates() {
                 })
                 .then(function(response) {
                     console.log(response);
+                    const pois = response.results[0].pois;
+                    for (let index = 0; index < pois.length; index++) {
+                        const poi = pois[index];
+                        console.log(poi);
+                        const url = poi.content && poi.content.attribution[0] && poi.content.attribution[0].url
+                            ? poi.content.attribution[0].url
+                            : "";
+                        const link = url
+                            ? `<a href="${url}">Visit Website</a>`
+                            : "";
+                        const imgUrl = poi.images[0]
+                            ? poi.images[0].source_url
+                            : "https://placekeanu.com/500/450";
+                        const poitemplate = `
+                            <div class="row">
+                                <div class="col">
+                                <div class="card horizontal">
+                                    <div class="card-image">
+                                    <img alt="" src="${imgUrl}">
+                                    <span class="card-title">${poi.name}</span>
+                                    </div>
+                                    <div class="card-content">
+                                    <p>this is where the info will be generated.</p>
+                                    </div>
+                                    <div class="card-action">
+                                    ${link}
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        `;
+                        document.querySelector(".container").insertAdjacentHTML("afterend", poitemplate);
+                    }
                 })
         } else {
             // insert modal here with error message? (Had trouble getting this to work with Materialize)
@@ -56,13 +90,14 @@ function getZipCoordinates() {
     })
 }
 
-getZipCoordinates();
+//getZipCoordinates();
 
 //zip code appened
 var btn = document.getElementById("btn")
 
 
-var click = btn.onclick = function () {
+btn.onclick = function () {
+    getZipCoordinates();
     // set item to local storage
     var value = document.getElementById("textarea1").value;
     localStorage.setItem("zipcode", value)
