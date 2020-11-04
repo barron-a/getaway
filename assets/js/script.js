@@ -1,8 +1,15 @@
 var zipCodeEl = document.getElementById("textarea1");
 
+// change function to determine how many miles user selects
+$("#miles-selected").change(function() {
+    meters = $('select#miles-selected').val()*1609.34;
+    console.log(meters);
+    return meters;
+    });
+
 // document.addEventListener('DOMContentLoaded', function () {
 //     var elems = document.querySelectorAll('select');
-//     var instances = M.FormSelect.init(elems, options);
+//     var instances = M.FormSelect.init(elems);
 // });
 
 //note we are going to need this !advanced note: When dynamically changing the value of a textarea with methods like jQuery's
@@ -18,39 +25,79 @@ $(document).ready(function () {
 });
 
 function getZipCoordinates() {
+
     // will pull user zip from input field - likely need a search or submit button with listener
     var userZip = zipCodeEl.value.trim();
+    console.log(userZip);
     var mapboxUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + userZip + ".json?access_token=pk.eyJ1IjoiYWRhbWJhcnJvbiIsImEiOiJja2d2dm84aW4wMXA0MzBsODltNjZ5ZzFiIn0.W7Kpov0CjgFZQWXRaFlKzg"
 
     // fetch coordinates based on zip from map box. Can replace fill URL with 'mapboxUrl' variable when button is enabled
 
-    fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/94043.json?access_token=pk.eyJ1IjoiYWRhbWJhcnJvbiIsImEiOiJja2d2dm84aW4wMXA0MzBsODltNjZ5ZzFiIn0.W7Kpov0CjgFZQWXRaFlKzg").then(function (response) {
+    fetch(mapboxUrl).then(function (response) {
+        // mapbox API call
         if (response.ok) {
             response.json().then(function (data) {
-
                 console.log(data);
-
-                // define latitude from returned data
                 var latitude = data.features[0].center[1];
-
-                //define latitude from returned data
                 var longitude = data.features[0].center[0];
-
                 console.log(latitude, longitude);
-            });
+
+                var triposoUrl = "https://www.triposo.com/api/20200803/local_highlights.json?latitude=" + latitude + "&longitude=" + longitude + "&max_distance=3000&poi_fields=all&account=ZCUNOA55&token=8pemze46o1tfvvh58e1tskjo5wegfswp"
+                return fetch(triposoUrl);
+            })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(response) {
+                    console.log(response);
+                    const pois = response.results[0].pois;
+                    for (let index = 0; index < pois.length; index++) {
+                        const poi = pois[index];
+                        console.log(poi);
+                        const url = poi.content && poi.content.attribution[0] && poi.content.attribution[0].url
+                            ? poi.content.attribution[0].url
+                            : "";
+                        const link = url
+                            ? `<a href="${url}">Visit Website</a>`
+                            : "";
+                        const imgUrl = poi.images[0]
+                            ? poi.images[0].source_url
+                            : "https://placekeanu.com/500/450";
+                        const poitemplate = `
+                            <div class="row">
+                                <div class="col">
+                                <div class="card horizontal">
+                                    <div class="card-image">
+                                    <img alt="" src="${imgUrl}">
+                                    <span class="card-title">${poi.name}</span>
+                                    </div>
+                                    <div class="card-content">
+                                    <p>this is where the info will be generated.</p>
+                                    </div>
+                                    <div class="card-action">
+                                    ${link}
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        `;
+                        document.querySelector(".container").insertAdjacentHTML("afterend", poitemplate);
+                    }
+                })
         } else {
             // insert modal here with error message? (Had trouble getting this to work with Materialize)
         };
     })
 }
 
-getZipCoordinates();
+//getZipCoordinates();
 
 //zip code appened
 var btn = document.getElementById("btn")
 
 
-var click = btn.onclick = function () {
+btn.onclick = function () {
+    getZipCoordinates();
     // set item to local storage
     var value = document.getElementById("textarea1").value;
     localStorage.setItem("zipcode", value)
