@@ -31,11 +31,14 @@
     </div>
     <div class="row">
       <div class="col zip-info">
-        <form>
+        <form id="zipForm">
             <div class="input-field">
-              <textarea id="textarea1" class="materialize-textarea"></textarea>
+              <input id="textarea1" type="text" class="validate"></input>
               <label for="textarea1">ZIP Code</label>
             </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action" id="btn">Find Fun!
+              <i class="material-icons right">filter_vintage</i>
+            </button>
         </form>
 
         <div class="input-field">
@@ -49,14 +52,11 @@
           </select>
 
         </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action" id="btn">Find Fun!
-          <i class="material-icons right">filter_vintage</i>
-        </button>
 
-        <div id="zipCodeOp" class="search-history">
+        <ul id="zipCodeOp" class="search-history">
           <!-- append the search history here-->
           Search history here
-        </div>
+        </ul>
 
       </div>
     </div>

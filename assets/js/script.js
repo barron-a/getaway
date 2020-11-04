@@ -1,11 +1,12 @@
 var zipCodeEl = document.getElementById("textarea1");
+var searchHistory = [];
 
 // change function to determine how many miles user selects
-$("#miles-selected").change(function() {
-    meters = $('select#miles-selected').val()*1609.34;
-    console.log(meters);
-    return meters;
-    });
+// $("#miles-selected").change(function() {
+//     meters = $('select#miles-selected').val()*1609.34;
+//     console.log(meters);
+//     return meters;
+//     });
 
 // document.addEventListener('DOMContentLoaded', function () {
 //     var elems = document.querySelectorAll('select');
@@ -93,31 +94,34 @@ function getZipCoordinates() {
 //getZipCoordinates();
 
 //zip code appened
-var btn = document.getElementById("btn")
+//var btn = document.getElementById("btn")
 
-
-btn.onclick = function () {
+document.getElementById("zipForm").addEventListener("submit", function(event) {
+    event.preventDefault()
     getZipCoordinates();
     // set item to local storage
-    var value = document.getElementById("textarea1").value;
+    var value = document.getElementById("textarea1").value.trim();
     localStorage.setItem("zipcode", value)
-    console.log(value)
-    // retrieve from local storeage and append in zipcodeop
-    document.getElementById("zipCodeOp").innerHTML = localStorage.getItem("zipcode")
+    searchHistory.push(value);
+    console.log(searchHistory);
+    var li = document.createElement("li");
+    li.textContent = value;
 
-}
+    // retrieve from local storeage and append in zipcodeop
+    document.getElementById("zipCodeOp").append(li);
+})
 
 // Get the input field
 var input = document.getElementById("textarea1");
 
 // Execute a function when the user releases a key on the keyboard
-input.addEventListener("keyup", function (event) {
-    // Number 13 is the "Enter" key on the keyboard
-    if (event.keyCode === 13) {
-        // Cancel the default action, if needed
-        event.preventDefault();
-        // Trigger the button element with a click
-        document.getElementById("btn").click();
-    }
-});
+// input.addEventListener("keyup", function (event) {
+//     // Number 13 is the "Enter" key on the keyboard
+//     if (event.keyCode === 13) {
+//         // Cancel the default action, if needed
+//         event.preventDefault();
+//         // Trigger the button element with a click
+//         document.getElementById("btn").click();
+//     }
+// });
 
