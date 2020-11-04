@@ -25,7 +25,7 @@ $(document).ready(function () {
     $('select').formSelect();
 });
 
-function getZipCoordinates() {
+function getPointsOfInterest() {
 
     // will pull user zip from input field - likely need a search or submit button with listener
     var userZip = zipCodeEl.value.trim();
@@ -52,6 +52,7 @@ function getZipCoordinates() {
                 .then(function(response) {
                     console.log(response);
                     const pois = response.results[0].pois;
+                    pois.reverse();
                     for (let index = 0; index < pois.length; index++) {
                         const poi = pois[index];
                         console.log(poi);
@@ -63,7 +64,10 @@ function getZipCoordinates() {
                             : "";
                         const imgUrl = poi.images[0]
                             ? poi.images[0].source_url
-                            : "https://placekeanu.com/500/450";
+                            : "https://sgl-assets.imgix.net/files/article_hero/how-to-plan-trip-guide-aaa-via-magazine-shutterstock_446918872.jpg?w=1440&h=720&crop=faces,edges";
+                        const description = poi.content.sections[0].body
+                            ? poi.content.sections[0].body
+                            : "";
                         const poitemplate = `
                             <div class="row">
                                 <div class="col">
@@ -73,7 +77,7 @@ function getZipCoordinates() {
                                     <span class="card-title">${poi.name}</span>
                                     </div>
                                     <div class="card-content">
-                                    <p>this is where the info will be generated.</p>
+                                    <p>${description}</p>
                                     </div>
                                     <div class="card-action">
                                     ${link}
@@ -91,14 +95,14 @@ function getZipCoordinates() {
     })
 }
 
-//getZipCoordinates();
+//getPointsOfInterest();
 
 //zip code appened
 //var btn = document.getElementById("btn")
 
 document.getElementById("zipForm").addEventListener("submit", function(event) {
-    event.preventDefault()
-    getZipCoordinates();
+    event.preventDefault();
+    getPointsOfInterest();
     // set item to local storage
     var value = document.getElementById("textarea1").value.trim();
     localStorage.setItem("zipcode", value)
@@ -112,7 +116,7 @@ document.getElementById("zipForm").addEventListener("submit", function(event) {
 })
 
 // Get the input field
-var input = document.getElementById("textarea1");
+//var input = document.getElementById("textarea1");
 
 // Execute a function when the user releases a key on the keyboard
 // input.addEventListener("keyup", function (event) {
