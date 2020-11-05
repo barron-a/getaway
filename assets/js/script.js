@@ -1,3 +1,7 @@
+$(document).ready(function () {
+$('.modal').modal();
+$(".parallax").parallax();
+
 var zipCodeEl = document.getElementById("textarea1");
 var searchHistory = [];
 
@@ -21,10 +25,6 @@ var searchHistory = [];
 
 // Or with jQuery 
 
-$(document).ready(function () {
-    $('select').formSelect();
-});
-
 function getPointsOfInterest() {
 
     // will pull user zip from input field - likely need a search or submit button with listener
@@ -36,20 +36,21 @@ function getPointsOfInterest() {
 
     fetch(mapboxUrl).then(function (response) {
         // mapbox API call
-        if (response.ok) {
-            response.json().then(function (data) {
-                console.log(data);
-                var latitude = data.features[0].center[1];
-                var longitude = data.features[0].center[0];
-                console.log(latitude, longitude);
+        return response.json()
+    }).then(function (data) {
+        console.log(data);
+        if (data.features[0]) {
+            console.log(data);
+            var latitude = data.features[0].center[1];
+            var longitude = data.features[0].center[0];
+            console.log(latitude, longitude);
 
-                var triposoUrl = "https://www.triposo.com/api/20200803/local_highlights.json?latitude=" + latitude + "&longitude=" + longitude + "&max_distance=3000&poi_fields=all&account=ZCUNOA55&token=8pemze46o1tfvvh58e1tskjo5wegfswp"
-                return fetch(triposoUrl);
-            })
-                .then(function(response) {
+            var triposoUrl = "https://www.triposo.com/api/20200803/local_highlights.json?latitude=" + latitude + "&longitude=" + longitude + "&max_distance=3000&poi_fields=all&account=ZCUNOA55&token=8pemze46o1tfvvh58e1tskjo5wegfswp"
+            return fetch(triposoUrl)
+                .then(function (response) {
                     return response.json();
                 })
-                .then(function(response) {
+                .then(function (response) {
                     console.log(response);
                     const pois = response.results[0].pois;
                     pois.reverse();
@@ -90,17 +91,44 @@ function getPointsOfInterest() {
                     }
                 })
         } else {
-            // insert modal here with error message? (Had trouble getting this to work with Materialize)
-        };
-    })
+            console.log("I am being reached");
+           // $(".modal").modal();
+
+            //var instance = M.Modal.getInstance(".modal");
+            //instance.open()
+            console.log($(".modal"));
+            $('#modalError').modal('open');
+        }
+    });
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function toggleModal() {
+//     var instance = M.Modal.getInstance($("#modalError"));
+//     instance.open()
+// }
 //getPointsOfInterest();
 
 //zip code appened
 //var btn = document.getElementById("btn")
 
-document.getElementById("zipForm").addEventListener("submit", function(event) {
+document.getElementById("zipForm").addEventListener("submit", function (event) {
     event.preventDefault();
     getPointsOfInterest();
     // set item to local storage
@@ -113,7 +141,7 @@ document.getElementById("zipForm").addEventListener("submit", function(event) {
 
     // retrieve from local storeage and append in zipcodeop
     document.getElementById("zipCodeOp").append(li);
-})
+});
 
 // Get the input field
 //var input = document.getElementById("textarea1");
@@ -128,4 +156,4 @@ document.getElementById("zipForm").addEventListener("submit", function(event) {
 //         document.getElementById("btn").click();
 //     }
 // });
-
+});
