@@ -1,46 +1,21 @@
 var zipCodeEl = document.getElementById("textarea1");
-var searchHistory = []
-var li = document.createElement("li");
-let searchHistorysArray = localStorage.getItem('zipcode')
-    ? JSON.parse(localStorage.getItem('zipcode'))
-    : []
+
+let searchHistory = JSON.parse(localStorage.getItem('zipcode')) || [];
+
+
 window.onload = function () {
-    searchHistory = JSON.parse(localStorage.getItem('zipcode')); //get data from storage
-    if (searchHistory !== null) { //if data exist (todos are in storage)
-        searchHistory.forEach(function (v) { //append each element into the dom
-            var value = v;
-            var li = document.createElement('li'); //2
-            var list = document.getElementById('zipCodeOp'); //2
-            entry.appendChild(document.createTextNode(value)); //2
-            list.appendChild(li); //2
-        })
-    } else { //if nothing exist in storage, keep todos array empty
-        searchHistory = [];
-    }
+
+    searchHistory.forEach(function (v) { //append each element into the dom
+        var value = v;
+        var li = document.createElement('li');
+        li.textContent = value
+        var list = document.getElementById('zipCodeOp');
+
+        list.appendChild(li);
+    })
+
 }
-// localStorage.getItem('zipcode')
-//     ? JSON.parse(localStorage.getItem('zipcode'))
-//     : [];
 
-// change function to determine how many miles user selects
-// $("#miles-selected").change(function() {
-//     meters = $('select#miles-selected').val()*1609.34;
-//     console.log(meters);
-//     return meters;
-//     });
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     var elems = document.querySelectorAll('select');
-//     var instances = M.FormSelect.init(elems);
-// });
-
-//note we are going to need this !advanced note: When dynamically changing the value of a textarea with methods like jQuery's
-// .val(), you must trigger an autoresize on it afterwords because .val() does not automatically trigger 
-// the events we've binded to the textarea.
-//$('#textarea1').val('New Text');
-//M.textareaAutoResize($('#textarea1'));
-
-// Or with jQuery 
 
 $(document).ready(function () {
     $('select').formSelect();
@@ -121,35 +96,30 @@ function getPointsOfInterest() {
     })
 }
 
-//getPointsOfInterest();
-
-//zip code appened
-//var btn = document.getElementById("btn")
 
 document.getElementById("zipForm").addEventListener("submit", function (event) {
     event.preventDefault();
     getPointsOfInterest();
     // set item to local storage
     var value = document.getElementById("textarea1").value.trim();
-    localStorage.setItem("zipcode", value)
-    searchHistory.push(value);
+    // localStorage.setItem("zipcode", value)
+    searchHistory.unshift(value);
+    searchHistory.splice(5)
 
 
+
+    var li = document.createElement("li");
     li.textContent = value;
 
 
     // retrieve from local storeage and append in zipcodeop
     document.getElementById("zipCodeOp").append(li);
 
-    //search history
-    const data = JSON.parse(localStorage.getItem('zipcode'))
-    event.preventDefault()
 
-    zipcodeArray.push(input.value)
-    localStorage.setItem('zipcode', JSON.stringify(zipcodeArray))
-    data.forEach((value) => {
-        li(value)
-    })
+
+    // zipcodeArray.push(input.value)
+    localStorage.setItem('zipcode', JSON.stringify(searchHistory))
+
 
 })
 
@@ -158,18 +128,6 @@ document.getElementById("zipForm").addEventListener("submit", function (event) {
 
 
 
-// Get the input field
-//var input = document.getElementById("textarea1");
 
-// Execute a function when the user releases a key on the keyboard
-// input.addEventListener("keyup", function (event) {
-//     // Number 13 is the "Enter" key on the keyboard
-//     if (event.keyCode === 13) {
-//         // Cancel the default action, if needed
-//         event.preventDefault();
-//         // Trigger the button element with a click
-//         document.getElementById("btn").click();
-//     }
-// });
 
 
