@@ -1,5 +1,26 @@
 var zipCodeEl = document.getElementById("textarea1");
-var searchHistory = [];
+var searchHistory = []
+var li = document.createElement("li");
+let searchHistorysArray = localStorage.getItem('zipcode')
+    ? JSON.parse(localStorage.getItem('zipcode'))
+    : []
+window.onload = function () {
+    searchHistory = JSON.parse(localStorage.getItem('zipcode')); //get data from storage
+    if (searchHistory !== null) { //if data exist (todos are in storage)
+        searchHistory.forEach(function (v) { //append each element into the dom
+            var value = v;
+            var li = document.createElement('li'); //2
+            var list = document.getElementById('zipCodeOp'); //2
+            entry.appendChild(document.createTextNode(value)); //2
+            list.appendChild(li); //2
+        })
+    } else { //if nothing exist in storage, keep todos array empty
+        searchHistory = [];
+    }
+}
+// localStorage.getItem('zipcode')
+//     ? JSON.parse(localStorage.getItem('zipcode'))
+//     : [];
 
 // change function to determine how many miles user selects
 // $("#miles-selected").change(function() {
@@ -112,13 +133,30 @@ document.getElementById("zipForm").addEventListener("submit", function (event) {
     var value = document.getElementById("textarea1").value.trim();
     localStorage.setItem("zipcode", value)
     searchHistory.push(value);
-    console.log(searchHistory);
-    var li = document.createElement("li");
+
+
     li.textContent = value;
+
 
     // retrieve from local storeage and append in zipcodeop
     document.getElementById("zipCodeOp").append(li);
+
+    //search history
+    const data = JSON.parse(localStorage.getItem('zipcode'))
+    event.preventDefault()
+
+    zipcodeArray.push(input.value)
+    localStorage.setItem('zipcode', JSON.stringify(zipcodeArray))
+    data.forEach((value) => {
+        li(value)
+    })
+
 })
+
+
+
+
+
 
 // Get the input field
 //var input = document.getElementById("textarea1");
