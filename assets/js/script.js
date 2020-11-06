@@ -25,7 +25,7 @@ $(document).ready(function () {
 
         // will pull user zip from input field - likely need a search or submit button with listener
         var userZip = zipCodeEl.value.trim();
-        console.log(userZip);
+
         var mapboxUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + userZip + ".json?access_token=pk.eyJ1IjoiYWRhbWJhcnJvbiIsImEiOiJja2d2dm84aW4wMXA0MzBsODltNjZ5ZzFiIn0.W7Kpov0CjgFZQWXRaFlKzg"
 
         // fetch coordinates based on zip from map box. Can replace fill URL with 'mapboxUrl' variable when button is enabled
@@ -34,10 +34,10 @@ $(document).ready(function () {
             // mapbox API call
             if (response.ok) {
                 response.json().then(function (data) {
-                    console.log(data);
+
                     var latitude = data.features[0].center[1];
                     var longitude = data.features[0].center[0];
-                    console.log(latitude, longitude);
+
 
                     var triposoUrl = "https://www.triposo.com/api/20200803/local_highlights.json?latitude=" + latitude + "&longitude=" + longitude + "&max_distance=3000&poi_fields=all&account=ZCUNOA55&token=8pemze46o1tfvvh58e1tskjo5wegfswp"
                     return fetch(triposoUrl);
@@ -46,12 +46,12 @@ $(document).ready(function () {
                         return response.json();
                     })
                     .then(function (response) {
-                        console.log(response);
+
                         const pois = response.results[0].pois;
                         pois.reverse();
                         for (let index = 0; index < pois.length; index++) {
                             const poi = pois[index];
-                            console.log(poi);
+
                             const url = poi.content && poi.content.attribution[0] && poi.content.attribution[0].url
                                 ? poi.content.attribution[0].url
                                 : "";
@@ -83,6 +83,12 @@ $(document).ready(function () {
                             </div>
                         `;
                             document.querySelector(".container").insertAdjacentHTML("afterend", poitemplate);
+                        }
+
+                        function process() {
+
+                            const file = document.querySelector
+
                         }
                     })
             } else {
