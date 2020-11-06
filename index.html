@@ -37,10 +37,23 @@
             <input id="textarea1" type="text" class="validate"></input>
             <label for="textarea1">ZIP Code</label>
           </div>
-          <button class="btn waves-effect waves-light" type="submit" name="action" id="btn">Find Fun!
+          <button class="btn waves-effect waves-light modal-trigger" data-trigger="modalError" type="submit"
+            name="action" id="btn">Find Fun!
             <i class="material-icons right">filter_vintage</i>
           </button>
         </form>
+
+        <section class="infomodal">
+          <div id="modalError" class="modal">
+            <div class="modal-content">
+              <h4 id="info-modal-heading">Zip Code Not Found</h4>
+              <p id="info-modal-content">Sorry, The Zipcode you have input is not valid. Please try again.</p>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-close waves-effect btn-flat">Close</a>
+            </div>
+          </div>
+        </section>
 
         <div class="input-field">
 
