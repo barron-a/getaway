@@ -1,3 +1,7 @@
+$(document).ready(function () {
+$('.modal').modal();
+$(".parallax").parallax();
+
 var zipCodeEl = document.getElementById("textarea1");
 var searchHistory = []
 var li = document.createElement("li");
@@ -42,10 +46,6 @@ window.onload = function () {
 
 // Or with jQuery 
 
-$(document).ready(function () {
-    $('select').formSelect();
-});
-
 function getPointsOfInterest() {
 
     // will pull user zip from input field - likely need a search or submit button with listener
@@ -57,16 +57,19 @@ function getPointsOfInterest() {
 
     fetch(mapboxUrl).then(function (response) {
         // mapbox API call
-        if (response.ok) {
-            response.json().then(function (data) {
-                console.log(data);
-                var latitude = data.features[0].center[1];
-                var longitude = data.features[0].center[0];
-                console.log(latitude, longitude);
 
-                var triposoUrl = "https://www.triposo.com/api/20200803/local_highlights.json?latitude=" + latitude + "&longitude=" + longitude + "&max_distance=3000&poi_fields=all&account=ZCUNOA55&token=8pemze46o1tfvvh58e1tskjo5wegfswp"
-                return fetch(triposoUrl);
-            })
+        return response.json()
+    }).then(function (data) {
+        console.log(data);
+        if (data.features[0]) {
+            console.log(data);
+            var latitude = data.features[0].center[1];
+            var longitude = data.features[0].center[0];
+            console.log(latitude, longitude);
+
+            var triposoUrl = "https://www.triposo.com/api/20200803/local_highlights.json?latitude=" + latitude + "&longitude=" + longitude + "&max_distance=3000&poi_fields=all&account=ZCUNOA55&token=8pemze46o1tfvvh58e1tskjo5wegfswp"
+            return fetch(triposoUrl)
+
                 .then(function (response) {
                     return response.json();
                 })
@@ -111,16 +114,40 @@ function getPointsOfInterest() {
                     }
                 })
         } else {
-            // insert modal here with error message? (Had trouble getting this to work with Materialize)
-            $(document).ready(function () {
 
-                $('.modal').modal();
+            console.log("I am being reached");
+           // $(".modal").modal();
 
-            })
-        };
-    })
+            //var instance = M.Modal.getInstance(".modal");
+            //instance.open()
+            console.log($(".modal"));
+            $('#modalError').modal('open');
+        }
+    });
+
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function toggleModal() {
+//     var instance = M.Modal.getInstance($("#modalError"));
+//     instance.open()
+// }
 //getPointsOfInterest();
 
 //zip code appened
@@ -141,6 +168,7 @@ document.getElementById("zipForm").addEventListener("submit", function (event) {
     // retrieve from local storeage and append in zipcodeop
     document.getElementById("zipCodeOp").append(li);
 
+
     //search history
     const data = JSON.parse(localStorage.getItem('zipcode'))
     event.preventDefault()
@@ -152,6 +180,7 @@ document.getElementById("zipForm").addEventListener("submit", function (event) {
     })
 
 })
+
 
 
 
@@ -171,5 +200,7 @@ document.getElementById("zipForm").addEventListener("submit", function (event) {
 //         document.getElementById("btn").click();
 //     }
 // });
+
+
 
 
