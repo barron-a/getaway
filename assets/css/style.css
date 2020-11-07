@@ -13,11 +13,7 @@ html {
 
 body {
     font-family: 'Montserrat', sans-serif;
-    /*
-    padding-right: calc(var(--size) * .5);
-    overflow-X: hidden;
-    hyphens: auto;
-    */
+    
 }
 
 header {
@@ -82,7 +78,7 @@ body {
   border: 2px solid  #ffffff;
   margin: 0;
   text-align: center;
-  width: 40%;
+  min-width: 40%;
 }
 
 .zipcode {
@@ -110,28 +106,38 @@ body {
 
 .card {
   justify-content: center;
-  width: auto;
+  min-width: 40%;
   border-radius: 5px;
+  margin: 30px;
+  
 
 }
+
 
 .card-title {
   font-weight: bold !important;
 }
 
-
-/* body > p {
-    font-size: 1.5rem;
-    margin: 2rem 0 1rem calc(var(--size) * .5);
-    font-weight: 200;
+.card-image{
+  border-radius:5px 5px 0 0 ;
 }
-*/
+
 
 .row {
   display: flex;
-  justify-content: center;
+  justify-content: center ;
+  flex-wrap: wrap;
 }
 
+@media only screen and (min-width: 720px){
+  .card {
+    max-width: 40%
+  }
+  .card-image{
+  max-height: 20rem; 
+  overflow: hidden;
+  }
+}
 @media only screen and (min-width: 1100px) {:root {--Nhexa: 6;}}
 @media only screen and (max-width: 600px) {}
 
