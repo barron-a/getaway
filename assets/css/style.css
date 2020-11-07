@@ -134,7 +134,7 @@ body {
     max-width: 40%
   }
   .card-image{
-  max-height: 20rem;
+  max-height: 20rem; 
   overflow: hidden;
   }
 }
