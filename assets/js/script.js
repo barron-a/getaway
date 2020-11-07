@@ -8,23 +8,24 @@ $(document).ready(function () {
 
 
     window.onload = function () {
+        displaySearchHistory()
 
-        searchHistory.forEach(function (v) { //append each element into the dom
-            var value = v;
-            var li = document.createElement('li');
-            li.textContent = value
-            var list = document.getElementById('zipCodeOp');
-
-            list.appendChild(li);
-        })
 
     }
+    function displaySearchHistory() {
+        var list = document.getElementById('zipCodeOp');
+        list.innerHTML = "";
+        searchHistory.forEach(function (v) { //append each element into the dom
 
+            var li = createSearchHistoryLi(v)
+            list.appendChild(li);
+        })
+    }
 
-    function getPointsOfInterest() {
+    function getPointsOfInterest(userZip) {
 
         // will pull user zip from input field - likely need a search or submit button with listener
-        var userZip = zipCodeEl.value.trim();
+
         console.log(userZip);
         var mapboxUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + userZip + ".json?access_token=pk.eyJ1IjoiYWRhbWJhcnJvbiIsImEiOiJja2d2dm84aW4wMXA0MzBsODltNjZ5ZzFiIn0.W7Kpov0CjgFZQWXRaFlKzg"
 
@@ -48,7 +49,7 @@ $(document).ready(function () {
                     .then(function (response) {
                         console.log(response);
                         const pois = response.results[0].pois;
-                        pois.reverse();
+                        // pois.reverse();
                         for (let index = 0; index < pois.length; index++) {
                             const poi = pois[index];
                             console.log(poi);
@@ -65,24 +66,21 @@ $(document).ready(function () {
                                 ? poi.content.sections[0].body
                                 : "";
                             const poitemplate = `
-                            <div class="row">
-                                <div class="col">
-                                <div class="card horizontal">
-                                    <div class="card-image">
-                                    <img alt="" src="${imgUrl}">
-                                    <span class="card-title">${poi.name}</span>
-                                    </div>
-                                    <div class="card-content">
-                                    <p>${description}</p>
-                                    </div>
-                                    <div class="card-action">
-                                    ${link}
-                                    </div>
-                                </div>
-                                </div>
+                            <div class="card ">
+                            <div class="card-image">
+                              <img class=" responsive-img"  src="${imgUrl}">
                             </div>
+                            <div class="card-content">
+                              <span class="card-title activator grey-text text-darken-4">${poi.name}<i class="material-icons right">more_vert</i></span>
+                              <p><a href="#">${link}</a></p>
+                            </div>
+                            <div class="card-reveal">
+                              <span class="card-title grey-text text-darken-4">${poi.name}<i class="material-icons right">close</i></span>
+                              <p>${description}</p>
+                            </div>
+                          </div>
                         `;
-                            document.querySelector(".container").insertAdjacentHTML("afterend", poitemplate);
+                            document.querySelector("#searchResults").innerHTML += poitemplate
                         }
                     })
             } else {
@@ -96,25 +94,28 @@ $(document).ready(function () {
         })
     }
 
+    function createSearchHistoryLi(zipcode) {
+        var li = document.createElement("li");
+        li.classList.add("collection-item")
+        li.textContent = zipcode;
+        li.addEventListener("click", function () {
+            getPointsOfInterest(zipcode);
+        });
+        return li
+    }
+
 
     document.getElementById("zipForm").addEventListener("submit", function (event) {
         event.preventDefault();
-        getPointsOfInterest();
+        var userZip = zipCodeEl.value.trim();
+        getPointsOfInterest(userZip);
         // set item to local storage
         var value = document.getElementById("textarea1").value.trim();
         // localStorage.setItem("zipcode", value)
         searchHistory.unshift(value);
         searchHistory.splice(5)
 
-
-
-        var li = document.createElement("li");
-        li.textContent = value;
-
-
-        // retrieve from local storeage and append in zipcodeop
-        document.getElementById("zipCodeOp").append(li);
-
+        displaySearchHistory()
 
 
         // zipcodeArray.push(input.value)
