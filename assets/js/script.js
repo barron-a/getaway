@@ -25,37 +25,37 @@ $(document).ready(function () {
 
         fetch(mapboxUrl).then(function (response) {
             // mapbox API call
-            if (response.ok) {
-                response.json().then(function (data) {
+            return response.json();
+        })
+            .then(function (data) {
+                var latitude = data.features[0].center[1];
+                var longitude = data.features[0].center[0];
 
-                    var latitude = data.features[0].center[1];
-                    var longitude = data.features[0].center[0];
+                var triposoUrl = "https://www.triposo.com/api/20200803/local_highlights.json?latitude=" + latitude + "&longitude=" + longitude + "&max_distance=3000&poi_fields=all&account=ZCUNOA55&token=8pemze46o1tfvvh58e1tskjo5wegfswp"
+                return fetch(triposoUrl);
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (response) {
 
-                    var triposoUrl = "https://www.triposo.com/api/20200803/local_highlights.json?latitude=" + latitude + "&longitude=" + longitude + "&max_distance=3000&poi_fields=all&account=ZCUNOA55&token=8pemze46o1tfvvh58e1tskjo5wegfswp"
-                    return fetch(triposoUrl);
-                })
-                    .then(function (response) {
-                        return response.json();
-                    })
-                    .then(function (response) {
+                const pois = response.results[0].pois;
+                for (let index = 0; index < pois.length; index++) {
+                    const poi = pois[index];
 
-                        const pois = response.results[0].pois;
-                        for (let index = 0; index < pois.length; index++) {
-                            const poi = pois[index];
-
-                            const url = poi.content && poi.content.attribution[0] && poi.content.attribution[0].url
-                                ? poi.content.attribution[0].url
-                                : "";
-                            const link = url
-                                ? `<a href="${url}">Visit Website</a>`
-                                : "";
-                            const imgUrl = poi.images[0]
-                                ? poi.images[0].source_url
-                                : "https://sgl-assets.imgix.net/files/article_hero/how-to-plan-trip-guide-aaa-via-magazine-shutterstock_446918872.jpg?w=1440&h=720&crop=faces,edges";
-                            const description = poi.content.sections[0].body
-                                ? poi.content.sections[0].body
-                                : "";
-                            const poitemplate = `
+                    const url = poi.content && poi.content.attribution[0] && poi.content.attribution[0].url
+                        ? poi.content.attribution[0].url
+                        : "";
+                    const link = url
+                        ? `<a href="${url}">Visit Website</a>`
+                        : "";
+                    const imgUrl = poi.images[0]
+                        ? poi.images[0].source_url
+                        : "https://sgl-assets.imgix.net/files/article_hero/how-to-plan-trip-guide-aaa-via-magazine-shutterstock_446918872.jpg?w=1440&h=720&crop=faces,edges";
+                    const description = poi.content.sections[0].body
+                        ? poi.content.sections[0].body
+                        : "";
+                    const poitemplate = `
                             <div class="card ">
                             <div class="card-image">
                               <img class=" responsive-img"  src="${imgUrl}">
@@ -70,21 +70,15 @@ $(document).ready(function () {
                             </div>
                           </div>
                         `;
-                            document.querySelector("#searchResults").innerHTML += poitemplate
-                        }
-
-                        function process() {
-                            const file = document.querySelector
-                        }
-                    })
-            } else {
+                    document.querySelector("#searchResults").innerHTML += poitemplate
+                }
+            })
+            .catch(function (err) {
                 // Modal with error message
-                $(document).ready(function () {
-                    $('.modal').modal();
-                })
-            };
-        })
-    }
+                $('.modal').modal("open");
+            })
+    };
+
 
     function createSearchHistoryLi(zipcode) {
         var li = document.createElement("li");
@@ -113,7 +107,8 @@ $(document).ready(function () {
 
         // zipcodeArray.push(input.value)
         localStorage.setItem('zipcode', JSON.stringify(searchHistory));
-    })
+    });
+
 });
 
 
