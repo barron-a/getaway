@@ -1,14 +1,8 @@
-# read-me-template
-This is a template to be used when creating ReadMe files for your Github repositories.
-# Read Me Template
+# Getaway
 
-![Project Image](project-image-url)
-
-> This is a ReadMe template to help save you time and effort.
 ---
 
 ### Table of Contents
-You're sections headers will be used to reference location of destination.
 
 - [Description](#description)
 - [How To Use](#how-to-use)
@@ -20,14 +14,19 @@ You're sections headers will be used to reference location of destination.
 
 ## Description
 
-Creating ReadMe's for your Github repository can be tedious.  I hope this template can save you time and effort as well as provide you with some consistency across your projects.
+Our mission is to help people explore and get to know the area they reside, or are visiting. We achieve this by giving them activities within a ZIP code the user choses
+Motivation for development?
+You know when you're asked “what kind of stuff is there to do around here?” and you draw a complete blank! Or its time to go out with friends/family/date and your doing the same thing you always do and life just feels so boring! Most of the time there is so much to do. we just don't know what is new or even out there. Now with Getaway we know, and can do all the fun stuff our area offers!
+
 
 #### Technologies
 
-- Technology 1
-- Technology 2
+- HTML
+- CSS
+- JavaScript
+- Outside libraries(Materialize, Google Font, jQuery)
 
-[Back To The Top](#read-me-template)
+[Back To The Top](#getaway)
 
 ---
 
@@ -40,14 +39,17 @@ Creating ReadMe's for your Github repository can be tedious.  I hope this templa
 #### API Reference
 
 ```html
-    <p>dummy code</p>
+    <p> 
+        MapBox - Mapbox API functionality was to get user longitud and latitud based on their zipcode that we fetch through their API server.
+        Triposo - After getting the longitud and latitud from Mapbox then fetch it through Triposo API and from there navigated their data to get Name/Description/Url
+    </p>
 ```
-[Back To The Top](#read-me-template)
+[Back To The Top](#getaway)
 
 ---
 
 ## References
-[Back To The Top](#read-me-template)
+[Back To The Top](#getaway)
 
 ---
 
@@ -55,33 +57,17 @@ Creating ReadMe's for your Github repository can be tedious.  I hope this templa
 
 MIT License
 
-Copyright (c) [2017] [James Q Quick]
+Copyright (c) [2020] [Author Info]
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-[Back To The Top](#read-me-template)
+[Back To The Top](#Getaway)
 
 ---
 
 ## Author Info
 
-- Twitter - [@jamesqquick](https://twitter.com/jamesqquick)
-- Website - [James Q Quick](https://jamesqquick.com)
+- Natasha Mullin
+- Adam Barron
+- Cesar Martinez
+- KS
 
-[Back To The Top](#read-me-template)
+[Back To The Top](#Getaway)
