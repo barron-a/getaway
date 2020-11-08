@@ -91,6 +91,7 @@ $(document).ready(function () {
         li.classList.add("collection-item");
         li.textContent = zipcode;
         li.addEventListener("click", function () {
+            document.querySelector("#searchResults").innerHTML = "";
             getPointsOfInterest(zipcode);
         });
         return li;
@@ -100,6 +101,7 @@ $(document).ready(function () {
     document.getElementById("zipForm").addEventListener("submit", function (event) {
         event.preventDefault();
         var userZip = zipCodeEl.value.trim();
+        document.querySelector("#searchResults").innerHTML = "";
         getPointsOfInterest(userZip);
         // set item to local storage
         var value = document.getElementById("textarea1").value.trim();
