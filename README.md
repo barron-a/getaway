@@ -6,6 +6,7 @@
 
 - [Description](#description)
 - [Images](#images)
+- [Using the App](#usage)
 - [Technologies](#technologies)
 - [References](#references)
 - [Author Info](#author-info)
@@ -35,6 +36,11 @@
 
 ### Card Info Disclosure
 ![Card Info](/assets/images/getaway_info_disclosure.png)
+
+---
+
+## Usage
+### Note: The first time you search a new zip code, you may see a slight delay while the Triposo API responds.
 
 ---
 
