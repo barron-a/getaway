@@ -9,6 +9,7 @@ $(document).ready(function () {
         displaySearchHistory();
     }
 
+    // function to display search history from local storage
     function displaySearchHistory() {
         var list = document.getElementById('zipCodeOp');
         list.innerHTML = "";
@@ -18,6 +19,7 @@ $(document).ready(function () {
         })
     }
 
+    // function to collect and display points of interest based on user zip code
     function getPointsOfInterest(userZip) {
 
         var mapboxUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + userZip + ".json?access_token=pk.eyJ1IjoiYWRhbWJhcnJvbiIsImEiOiJja2d2dm84aW4wMXA0MzBsODltNjZ5ZzFiIn0.W7Kpov0CjgFZQWXRaFlKzg"
@@ -30,7 +32,8 @@ $(document).ready(function () {
 
                     var latitude = data.features[0].center[1];
                     var longitude = data.features[0].center[0];
-
+                    
+                    // triposo API call
                     var triposoUrl = "https://www.triposo.com/api/20200803/local_highlights.json?latitude=" + latitude + "&longitude=" + longitude + "&max_distance=3000&poi_fields=all&account=ZCUNOA55&token=8pemze46o1tfvvh58e1tskjo5wegfswp"
                     return fetch(triposoUrl);
                 })
@@ -39,6 +42,7 @@ $(document).ready(function () {
                     })
                     .then(function (response) {
 
+                        // template literal
                         const pois = response.results[0].pois;
                         for (let index = 0; index < pois.length; index++) {
                             const poi = pois[index];
@@ -72,10 +76,6 @@ $(document).ready(function () {
                         `;
                             document.querySelector("#searchResults").innerHTML += poitemplate
                         }
-
-                        function process() {
-                            const file = document.querySelector
-                        }
                     })
             } else {
                 // Modal with error message
@@ -86,6 +86,7 @@ $(document).ready(function () {
         })
     }
 
+    // function to create previously searched zipcode list
     function createSearchHistoryLi(zipcode) {
         var li = document.createElement("li");
         li.classList.add("collection-item");
@@ -97,21 +98,19 @@ $(document).ready(function () {
         return li;
     }
 
-
+    // event listener for submit button
     document.getElementById("zipForm").addEventListener("submit", function (event) {
         event.preventDefault();
         var userZip = zipCodeEl.value.trim();
         document.querySelector("#searchResults").innerHTML = "";
         getPointsOfInterest(userZip);
-        // set item to local storage
         var value = document.getElementById("textarea1").value.trim();
-        // localStorage.setItem("zipcode", value)
         searchHistory.unshift(value);
         searchHistory.splice(5);
 
         displaySearchHistory();
 
-        // zipcodeArray.push(input.value)
+        // set item to local storage
         localStorage.setItem('zipcode', JSON.stringify(searchHistory));
     })
 });
